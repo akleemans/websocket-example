@@ -29,7 +29,6 @@ socket.onmessage = (event) => {
   console.log("Got message:", message);
   switch (message.action) {
     case actions.in.NEW_GAME:
-      // console.log('NEW_GAME, got board:', data);
       board = message.data;
       drawBoard();
       break;
@@ -42,7 +41,7 @@ socket.onmessage = (event) => {
 
 //////////
 
-let init = () => {
+const init = () => {
   console.log("Initializing...");
   // setup canvas
   canvas = document.getElementById('gameCanvas');
@@ -65,9 +64,9 @@ let init = () => {
     // TODO send event
     mouseIsDown = false;
   });
-}
+};
 
-function drawBoard() {
+const drawBoard = () => {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   for (let i = 0; i < board.length; i++) {
     let shape = board[i];
@@ -75,9 +74,9 @@ function drawBoard() {
     let y = ((i - (i % boardParams.dim.w)) / boardParams.dim.w) * boardParams.fieldSize;
     drawShape(boardParams.startX + x, boardParams.startY + y, shape);
   }
-}
+};
 
-function drawShape(x, y, s) {
+const drawShape = (x, y, s) => {
   const shapes = {
     'w': {name: 'circle', color: 'white', img: document.getElementById("gem1")},
     'p': {name: 'triangle', color: 'purple', img: document.getElementById("gem2")},
@@ -89,20 +88,20 @@ function drawShape(x, y, s) {
   };
   let shape = shapes[s];
   ctx.drawImage(shape.img, x, y);
-}
+};
 
 
-function sendButton() {
+const sendButton = () => {
   send(actions.out.NEW_GAME, null);
-}
+};
 
-let send = (action, data) => {
+const send = (action, data) => {
   let message = {action, data};
   console.log("sending:", message);
   socket.send(JSON.stringify(message));
 };
 
-let getField = (x, y) => {
+const getField = (x, y) => {
   x -= canvas.offsetLeft;
   x -= (boardParams.fieldSize / 2);
   x -= boardParams.startX;
