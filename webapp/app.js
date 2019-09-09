@@ -29,10 +29,8 @@ socket.onmessage = (event) => {
   console.log("Got message:", message);
   switch (message.action) {
     case actions.in.NEW_GAME:
-      board = message.data;
-      drawBoard();
-      break;
     case actions.in.MOVE:
+    default:
       board = message.data;
       drawBoard();
       break;
@@ -112,7 +110,7 @@ const getField = (x, y) => {
   y -= (boardParams.fieldSize / 2);
   y -= boardParams.startY;
   y /= boardParams.fieldSize;
-  y = Math.floor(y);
+  y = Math.round(y);
 
-  return (y + 1) * 8 + x;
+  return y * 8 + x;
 };
