@@ -5,6 +5,7 @@ let ctx;
 let board;
 let mouseIsDown = false;
 let startField = null;
+let score = 0;
 
 const boardParams = {
   startX: 20,
@@ -15,7 +16,7 @@ const boardParams = {
 
 const actions = {
   out: {
-    NEW_GAME: 'NEW_GAME',
+    REQUEST_NEW_GAME: 'REQUEST_NEW_GAME',
     REQUEST_MOVE: 'REQUEST_MOVE'
   },
   in: {
@@ -31,7 +32,9 @@ socket.onmessage = (event) => {
     case actions.in.NEW_GAME:
     case actions.in.MOVE:
     default:
-      board = message.data;
+      board = message.data.split('|')[0];
+      score = message.data.split('|')[1];
+      updateScore();
       drawBoard();
       break;
   }
@@ -64,6 +67,10 @@ const init = () => {
   });
 };
 
+const updateScore = () => {
+  document.getElementById("score").innerText = score;
+};
+
 const drawBoard = () => {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   for (let i = 0; i < board.length; i++) {
@@ -90,7 +97,7 @@ const drawShape = (x, y, s) => {
 
 
 const sendButton = () => {
-  send(actions.out.NEW_GAME, null);
+  send(actions.out.REQUEST_NEW_GAME, null);
 };
 
 const send = (action, data) => {

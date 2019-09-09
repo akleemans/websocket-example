@@ -22,9 +22,12 @@
 <div id="wrapper" class="center">
     <h1>Websocket Example</h1>
     <canvas id="gameCanvas" width="310" height="310" style="border:1px solid #000000;"></canvas>
-    <p>
-        <button onclick="sendButton()">Start</button>
-    </p>
+    <div>
+        <p>
+            <button onclick="sendButton()">Start</button>
+            - Score: <span id="score"></span>
+        </p>
+    </div>
 </div>
 <style>
     .center {
