@@ -1,7 +1,7 @@
 # websocket-example
 Small example for data exchange over websockets.
 
-See [this blog post](https://www.kleemans.ch/post/playing-around-with-websockets/) for more information!
+See [this blog post](https://www.kleemans.ch/playing-around-with-websockets) for more information!
 
 <p align="center">
     <img src="https://github.com/akleemans/websocket-example/blob/master/websocket.gif" alt="websocket-example">
